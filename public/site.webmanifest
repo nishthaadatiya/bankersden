@@ -1,0 +1,20 @@
+{
+  "name": "Banker's Den - Digital Lending Platform",
+  "short_name": "Banker's Den",
+  "description": "India's #1 Digital Lending Platform for quick loan approvals",
+  "icons": [
+    {
+      "src": "/logobg.png",
+      "sizes": "any",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "theme_color": "#1f2937",
+  "background_color": "#0f172a",
+  "display": "standalone",
+  "start_url": "/",
+  "scope": "/",
+  "orientation": "portrait",
+  "categories": ["finance", "business"]
+}

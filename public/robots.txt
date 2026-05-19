@@ -1,0 +1,35 @@
+User-agent: *
+Allow: /
+
+# Allow all loan pages
+Allow: /loans/
+Allow: /loans/home
+Allow: /loans/personal
+Allow: /loans/business
+Allow: /loans/car
+Allow: /loans/education
+Allow: /loans/property
+
+# Allow calculators
+Allow: /calculators
+Allow: /emi-calculator
+
+# Allow public pages
+Allow: /about
+Allow: /contact
+
+# Disallow admin pages
+Disallow: /admin/
+Disallow: /admin/*
+
+# Disallow API routes
+Disallow: /api/
+
+# Disallow apply pages (no index, but allow crawling)
+Disallow: /loans/*/apply
+
+# Sitemap location
+Sitemap: https://bankersdens.com/sitemap.xml
+
+# Crawl delay (optional)
+Crawl-delay: 1
