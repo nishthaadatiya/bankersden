@@ -7,7 +7,7 @@ export const dynamic = 'force-dynamic';
 
 export async function POST(request: NextRequest) {
   try {
-    const { full_name, email, phone, category, message } = await request.json();
+    const { full_name, email, phone, category, message, isAuthenticated } = await request.json();
     const applicationNumber = `CT${Date.now()}`;
 
     await connectDB();
@@ -21,6 +21,7 @@ export async function POST(request: NextRequest) {
       phone,
       category: category || 'general',
       message,
+      isAuthenticated: !!isAuthenticated,
       status: 'active'
     });
     await lead.save();

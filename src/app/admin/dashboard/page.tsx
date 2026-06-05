@@ -44,6 +44,7 @@ interface Lead {
   city?: string;
   state?: string;
   pincode?: string;
+  isAuthenticated?: boolean;
   createdAt: string;
   updatedAt: string;
 }
@@ -785,6 +786,7 @@ export default function AdminDashboard() {
                     <p><strong>Name:</strong> {selectedLead.full_name}</p>
                     <p><strong>Email:</strong> {selectedLead.email}</p>
                     {selectedLead.phone && <p><strong>Phone:</strong> {selectedLead.phone}</p>}
+                    <p><strong>Verified User:</strong> {selectedLead.isAuthenticated ? <span className="text-green-600 font-semibold">✅ Yes</span> : <span className="text-gray-500">❌ No</span>}</p>
                     {selectedLead.address && (
                       <p><strong>Address:</strong> {selectedLead.address}, {selectedLead.city}, {selectedLead.state} - {selectedLead.pincode}</p>
                     )}

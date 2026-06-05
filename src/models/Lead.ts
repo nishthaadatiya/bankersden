@@ -90,6 +90,10 @@ const leadSchema = new mongoose.Schema({
   whyJoin: String,
   expectedEarnings: String,
   
+  isAuthenticated: {
+    type: Boolean,
+    default: false
+  },
   createdAt: {
     type: Date,
     default: Date.now
