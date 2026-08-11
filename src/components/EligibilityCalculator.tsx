@@ -41,10 +41,12 @@ export const EligibilityCalculator: React.FC = () => {
       const rate = parseFloat(formData.interestRate) || 8.5;
 
       let foir = 0.50;
-      if (monthlyIncome <= 100000) foir = 0.65;
-      else if (monthlyIncome <= 200000) foir = 0.70;
-      else if (monthlyIncome <= 500000) foir = 0.75;
-      else foir = 0.80;
+      if (monthlyIncome >= 500000) foir = 0.80;
+      else if (monthlyIncome >= 200000) foir = 0.75;
+      else if (monthlyIncome >= 100000) foir = 0.70;
+      else if (monthlyIncome >= 50000) foir = 0.65;
+      else if (monthlyIncome >= 20000) foir = 0.60;
+      else foir = 0.50;
 
       // Calculate available income for EMI
       const availableForEMI = (monthlyIncome * foir) - existingEMI;

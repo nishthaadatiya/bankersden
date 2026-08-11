@@ -73,15 +73,15 @@ export const seoConfigs = {
   },
   
   homeLoan: {
-    title: "Home Loan - Lowest Interest Rates Starting 8.25%",
-    description: "Get home loans with India's lowest interest rates starting from 8.25% p.a. Up to ₹5 crores with flexible tenure. Quick approval & doorstep service.",
+    title: "Home Loan - Lowest Interest Rates Starting 7.00%",
+    description: "Get home loans with India's lowest interest rates starting from 7.00% p.a. Up to ₹5 crores with flexible tenure. Quick approval & doorstep service.",
     keywords: ['home loan', 'home loan interest rates', 'home loan calculator', 'lowest home loan rates'],
     canonical: '/loans/home'
   },
   
   personalLoan: {
     title: "Personal Loan - Quick Approval Up to ₹50 Lakhs",
-    description: "Get personal loans up to ₹50 lakhs with competitive rates starting from 8.5% p.a. Instant approval, minimal documentation, 100% digital process.",
+    description: "Get personal loans up to ₹50 lakhs with competitive rates starting from 10% p.a. onwards. Instant approval, minimal documentation, 100% digital process.",
     keywords: ['personal loan', 'instant personal loan', 'personal loan online', 'quick personal loan'],
     canonical: '/loans/personal'
   },

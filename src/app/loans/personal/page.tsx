@@ -69,7 +69,7 @@ export default function PersonalLoanPage() {
                 </h1>
                 <p className="text-base md:text-lg text-gray-600 leading-relaxed max-w-md">
                   Personal loans up to <span className="font-semibold text-[#FF6B35]">₹25 lakhs</span> with competitive rates from{' '}
-                  <span className="font-semibold text-[#FF6B35]">8.5% p.a.</span> No collateral, no guarantor — just quick cash when you need it.
+                  <span className="font-semibold text-[#FF6B35]">10% p.a. onwards</span> — No collateral, no guarantor — just quick cash when you need it.
                 </p>
                 <div className="grid grid-cols-2 gap-2 max-w-md">
                   {['No Collateral Required', 'Instant Disbursal', 'Flexible End-Use', 'Minimal Documentation'].map(f => (
@@ -97,7 +97,7 @@ export default function PersonalLoanPage() {
           <div className="w-full bg-transparent">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
               <div className="grid grid-cols-1 sm:grid-cols-3 sm:divide-x divide-orange-200 max-w-3xl mx-auto gap-4 sm:gap-0">
-                {[{ value: '8.5% – 18%', label: 'Interest Rate' }, { value: '₹50K – ₹25L', label: 'Loan Amount' }, { value: '1 – 5 yrs', label: 'Tenure' }].map(s => (
+                {[{ value: '10% – 18%', label: 'Interest Rate' }, { value: '₹50K – ₹25L', label: 'Loan Amount' }, { value: '1 – 5 yrs', label: 'Tenure' }].map(s => (
                   <div key={s.label} className="text-center sm:px-6 py-2 sm:py-0">
                     <p className="text-xl sm:text-2xl md:text-3xl font-bold text-[#FF6B35]">{s.value}</p>
                     <p className="text-xs text-gray-500 mt-0.5">{s.label}</p>
@@ -120,7 +120,7 @@ export default function PersonalLoanPage() {
                   {[
                     { label: 'I want to borrow:', val: `₹${fmt(loanAmount)}`, min: 50000, max: 2500000, step: 10000, value: loanAmount, set: setLoanAmount, lo: '₹50K', hi: '₹25L' },
                     { label: 'For a period of:', val: `${tenure} years`, min: 1, max: 5, step: 1, value: tenure, set: setTenure, lo: '1 yr', hi: '5 yrs' },
-                    { label: 'Interest rate:', val: `${interestRate.toFixed(1)}% p.a.`, min: 8.5, max: 18, step: 0.5, value: interestRate, set: setInterestRate, lo: '8.5%', hi: '18%' },
+                    { label: 'Interest rate:', val: `${interestRate.toFixed(1)}% p.a.`, min: 10, max: 18, step: 0.5, value: interestRate, set: setInterestRate, lo: '10%', hi: '18%' },
                   ].map(s => (
                     <div key={s.label}>
                       <div className="flex justify-between items-center mb-2">
@@ -200,7 +200,7 @@ export default function PersonalLoanPage() {
                   { icon: Zap, title: 'Complete Digital Processing', desc: 'Funds in your account within hours of approval.' },
                   { icon: User, title: 'No Collateral', desc: 'Pure unsecured loan — no asset needed as security.' },
                   { icon: CheckCircle, title: 'Flexible End-Use', desc: 'Use for travel, medical, wedding, education or anything.' },
-                  { icon: Star, title: 'Competitive Rates', desc: 'Starting at just 8.5% p.a. with no hidden fees.' },
+                  { icon: Star, title: 'Competitive Rates', desc: 'Starting at just 10% p.a. onwards with no hidden fees.' },
                   { icon: Shield, title: 'No Prepayment Penalty', desc: 'Pay off your loan early without any hidden charges.' },
                   { icon: Home, title: 'Door Step Service', desc: 'Our representatives come to you for document collection.' },
                   { icon: FileText, title: 'Minimal Docs', desc: 'Apply with just Aadhaar, PAN, and income proof.' },

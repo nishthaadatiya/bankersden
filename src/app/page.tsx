@@ -57,6 +57,14 @@ export default function HomePage() {
   const [currentHeroCard, setCurrentHeroCard] = useState(0);
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
 
+  // Auto-rotate hero cards every 4 seconds
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentHeroCard((prev) => (prev + 1) % 3);
+    }, 4000);
+    return () => clearInterval(timer);
+  }, []);
+
   // Intersection Observer for scroll animations
   useEffect(() => {
     if (isDropdownOpen && dropdownButtonRef.current) {
@@ -105,32 +113,35 @@ export default function HomePage() {
     {
       title: "Personal Loans",
       subtitle: "Instant Digital Approval",
-      description: "Get personal loans up to ₹50 lakhs with competitive interest rates starting from 8.5% p.a. 100% digital process with instant approval.",
+      description: "Get personal loans up to ₹50 lakhs with competitive interest rates starting from 10% p.a. onwards. 100% digital process with instant approval.",
       icon: IndianRupee,
       buttonText: "Apply Now",
       buttonLink: "/loans/personal",
       gradient: "from-[#FF6B35] to-[#FF8C42]",
-      bgGradient: "from-[#0F172A] to-[#1E293B]"
+      bgGradient: "from-[#0F172A] to-[#1E293B]",
+      rate: "10% Onwards"
     },
     {
       title: "Home Loans",
       subtitle: "Your Dream Home Awaits",
-      description: "Secure your dream home with India's lowest interest rates starting from 7.10% p.a. Pre-approved loans up to ₹5 crores with flexible tenure.",
+      description: "Secure your dream home with India's lowest interest rates starting from 7.00% p.a. Pre-approved loans up to ₹5 crores with flexible tenure.",
       icon: HomeIcon,
       buttonText: "Get Pre-Approved",
       buttonLink: "/loans/home",
       gradient: "from-[#FF6B35] to-[#FF8C42]",
-      bgGradient: "from-[#0F172A] to-[#1E293B]"
+      bgGradient: "from-[#0F172A] to-[#1E293B]",
+      rate: "Starting 7.00%"
     },
     {
       title: "Business Loans",
       subtitle: "Fuel Your Growth Story",
-      description: "Power your business expansion with collateral-free loans up to ₹75 lakhs. Quick disbursals and competitive rates for MSMEs.",
+      description: "Power your business expansion with collateral-free loans up to ₹75 lakhs. Quick disbursals and competitive rates from 10% p.a. onwards for MSMEs.",
       icon: TrendingUp,
       buttonText: "Scale Your Business",
       buttonLink: "/loans/business",
       gradient: "from-[#FF6B35] to-[#FF8C42]",
-      bgGradient: "from-[#0F172A] to-[#1E293B]"
+      bgGradient: "from-[#0F172A] to-[#1E293B]",
+      rate: "10% Onwards"
     },
   ];
 
@@ -138,8 +149,8 @@ export default function HomePage() {
     {
       icon: HomeIcon,
       title: "Home Loan",
-      description: "India's lowest rates starting from 8.25% p.a. with doorstep service",
-      rate: "7.10%",
+      description: "India's lowest rates starting from 7.00% p.a. with doorstep service",
+      rate: "7.00%",
       amount: "₹5 Cr",
       link: "/loans/home",
       color: "from-[#FF6B35] to-[#FF8C42]"
@@ -148,7 +159,7 @@ export default function HomePage() {
       icon: IndianRupee,
       title: "Personal Loan",
       description: "Instant approval up to ₹50 lakhs with minimal documentation",
-      rate: "8.5%",
+      rate: "10%+",
       amount: "₹50 L",
       link: "/loans/personal",
       color: "from-[#FF6B35] to-[#FF8C42]"
@@ -157,7 +168,7 @@ export default function HomePage() {
       icon: Briefcase,
       title: "Business Loan",
       description: "Collateral-free business loans for MSMEs and startups",
-      rate: "9.5%",
+      rate: "10%+",
       amount: "₹75 L",
       link: "/loans/business",
       color: "from-[#FF6B35] to-[#FF8C42]"
@@ -202,7 +213,7 @@ export default function HomePage() {
       icon: Target,
       title: "Lowest Rates",
       description: "Access India's most competitive interest rates across 50+ leading banks and NBFCs.",
-      stat: "8.25%"
+      stat: "7.00%"
     },
     {
       icon: Shield,
@@ -429,7 +440,7 @@ export default function HomePage() {
                                 <div className="space-y-4">
                                   <div className="flex justify-between items-center">
                                     <span className="text-base text-slate-400 font-medium">Interest Rate</span>
-                                    <span className="font-bold text-[#FF6B35] text-xl tracking-tight">Starting 8.25%</span>
+                                    <span className="font-bold text-[#FF6B35] text-xl tracking-tight">{card.rate}</span>
                                   </div>
                                   <div className="flex justify-between items-center">
                                     <span className="text-base text-slate-400 font-medium">Processing Time</span>

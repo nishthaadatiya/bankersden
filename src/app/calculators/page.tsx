@@ -179,17 +179,25 @@ function EligibilityTab() {
   const [existingEmi, setExistingEmi] = useState(5000);
   const [rate, setRate] = useState(10.5);
   const [tenure, setTenure] = useState(20);
-  const [creditScore, setCreditScore] = useState(750);
 
-  const availableEmi = income * 0.5 - existingEmi;
+  let foir = 0.50;
+  if (income >= 500000) foir = 0.80;
+  else if (income >= 200000) foir = 0.75;
+  else if (income >= 100000) foir = 0.70;
+  else if (income >= 50000) foir = 0.65;
+  else if (income >= 20000) foir = 0.60;
+  else foir = 0.50;
+
+  const maxPermissibleDeduction = income * foir;
+  const availableEmi = maxPermissibleDeduction - existingEmi;
   const r = rate / 100 / 12, n = tenure * 12;
   const maxLoan = availableEmi > 0
     ? (availableEmi * (Math.pow(1 + r, n) - 1)) / (r * Math.pow(1 + r, n))
     : 0;
-  const qualifying = creditScore >= 700 && availableEmi > 0;
-  const scorePct = (creditScore - 300) / (900 - 300);
-  const scoreColor = creditScore >= 750 ? '#FF6B35' : creditScore >= 650 ? '#F59E0B' : '#EF4444';
-  const scoreLabel = creditScore >= 750 ? 'Excellent' : creditScore >= 700 ? 'Good' : creditScore >= 650 ? 'Fair' : 'Poor';
+  const qualifying = availableEmi > 0;
+  
+  // For the chart, show existing EMI vs available EMI out of max permissible deduction
+  const usedPct = maxPermissibleDeduction > 0 ? existingEmi / maxPermissibleDeduction : 0;
 
   return (
     <div className="grid lg:grid-cols-2 gap-10 items-start">
@@ -198,45 +206,34 @@ function EligibilityTab() {
           <h3 className="text-lg font-bold text-white text-center">Your Financial Profile</h3>
         </div>
         <div className="px-6 py-6 space-y-6">
-          <Slider label="Monthly Income" val={income} display={`₹${fmt(income)}`}
-            min={20000} max={500000} step={5000} set={setIncome} lo="₹20K" hi="₹5L" />
-          <Slider label="Existing EMIs / Month" val={existingEmi} display={`₹${fmt(existingEmi)}`}
-            min={0} max={100000} step={1000} set={setExistingEmi} lo="₹0" hi="₹1L" />
-          <Slider label="Interest Rate" val={rate} display={`${rate.toFixed(1)}% p.a.`}
+          <Slider label="Gross Monthly Income" val={income} display={`₹${fmt(income)}`}
+            min={10000} max={1000000} step={5000} set={setIncome} lo="₹10K" hi="₹10L" />
+          <Slider label="Total Monthly EMIs" val={existingEmi} display={`₹${fmt(existingEmi)}`}
+            min={0} max={500000} step={1000} set={setExistingEmi} lo="₹0" hi="₹5L" />
+          <Slider label="Interest Rate %" val={rate} display={`${rate.toFixed(1)}% p.a.`}
             min={6} max={20} step={0.5} set={setRate} lo="6%" hi="20%" />
-          <Slider label="Preferred Tenure" val={tenure} display={`${tenure} yrs`}
+          <Slider label="Period (Years)" val={tenure} display={`${tenure} yrs`}
             min={1} max={30} step={1} set={setTenure} lo="1 yr" hi="30 yrs" />
-          <Slider label="Credit Score" val={creditScore} display={`${creditScore} — ${scoreLabel}`}
-            min={300} max={900} step={10} set={setCreditScore} lo="300" hi="900" />
         </div>
       </div>
 
       <div className="flex flex-col items-center gap-6">
-        {/* Credit score gauge */}
-        <div className="relative flex items-center justify-center">
-          <svg width={200} height={110} viewBox="0 0 200 110">
-            <path d="M 15 95 A 85 85 0 0 1 185 95" fill="none" stroke="#FFE8DF" strokeWidth={22} strokeLinecap="round" />
-            <path d="M 15 95 A 85 85 0 0 1 185 95" fill="none" stroke={scoreColor}
-              strokeWidth={22} strokeLinecap="round"
-              strokeDasharray={`${scorePct * 267} 267`}
-              style={{ transition: 'stroke-dasharray 0.6s ease, stroke 0.3s ease' }} />
-            <text x="100" y="80" textAnchor="middle" fontSize="22" fontWeight="800" fill={scoreColor}>{creditScore}</text>
-            <text x="100" y="97" textAnchor="middle" fontSize="10" fill="#9ca3af">Credit Score — {scoreLabel}</text>
-          </svg>
-        </div>
+        <Donut pct={usedPct} label="EMI Capacity Used" val={`${Math.min(100, Math.round(usedPct * 100))}%`} id="eligibility-donut" />
+        <HBar left={existingEmi} leftLabel={`Existing ₹${fmt(existingEmi)}`}
+          right={Math.max(0, availableEmi)} rightLabel={`Available ₹${fmt(Math.max(0, availableEmi))}`} />
 
         <div className={`w-full rounded-2xl p-5 border text-center ${qualifying ? 'bg-orange-50 border-orange-200' : 'bg-red-50 border-red-200'}`}>
           <p className={`text-sm font-bold ${qualifying ? 'text-[#FF6B35]' : 'text-red-500'}`}>
-            {qualifying ? '✅ You may be eligible for a loan' : '⚠️ Eligibility needs improvement'}
+            {qualifying ? '✅ You are eligible for a loan' : '⚠️ Eligibility needs improvement'}
           </p>
         </div>
 
         <div className="w-full bg-white rounded-2xl p-6 shadow-md border border-gray-100 space-y-3">
           {[
+            { label: 'Max Permissible EMI', val: `₹${fmt(maxPermissibleDeduction)}` },
             { label: 'Net Available EMI', val: `₹${fmt(Math.max(0, availableEmi))}` },
             { label: 'Eligible Loan Amount', val: `₹${fmt(Math.max(0, maxLoan))}`, highlight: true },
-            { label: 'FOIR Used', val: `${Math.min(100, Math.round((existingEmi / income) * 100))}%` },
-            { label: 'Recommended Score', val: '700+' },
+            { label: 'FOIR Applied', val: `${Math.round(foir * 100)}%` },
           ].map(row => (
             <div key={row.label} className={`flex justify-between py-2 ${row.highlight ? 'border-t border-orange-100 pt-3' : ''}`}>
               <span className={`text-sm ${row.highlight ? 'font-bold text-gray-900' : 'text-gray-500'}`}>{row.label}</span>

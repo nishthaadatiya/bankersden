@@ -23,8 +23,8 @@ Loan Types:
 
 Interest Rates:
 - Personal Loan: 10% onwards (depends on CIBIL & profile)
-- Home Loan: 7.1% onwards
-- Business Loan: 10.5% onwards
+- Home Loan: 7.00% onwards
+- Business Loan: 10% onwards
 - Car Loan: Depends on vehicle & profile
 
 Eligibility (General):

@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: "Home Loan - Lowest Interest Rates Starting 8.25% | Banker's Den",
-  description: "Get home loans with India's lowest interest rates starting from 8.25% p.a. Up to ₹5 crores with flexible tenure. Quick approval & doorstep service.",
+  title: "Home Loan - Lowest Interest Rates Starting 7.00% | Banker's Den",
+  description: "Get home loans with India's lowest interest rates starting from 7.00% p.a. Up to ₹5 crores with flexible tenure. Quick approval & doorstep service.",
   keywords: [
     'home loan',
     'home loan interest rates',
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     'property loan India'
   ],
   openGraph: {
-    title: "Home Loan - Lowest Interest Rates Starting 8.25%",
+    title: "Home Loan - Lowest Interest Rates Starting 7.00%",
     description: "Get home loans with India's lowest interest rates. Up to ₹5 crores with flexible tenure and quick approval.",
     url: 'https://bankersden.com/loans/home',
   },

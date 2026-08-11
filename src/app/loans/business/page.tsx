@@ -16,7 +16,7 @@ export default function BusinessLoanPage() {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [loanAmount, setLoanAmount] = useState(2000000);
   const [tenure, setTenure] = useState(5);
-  const [interestRate, setInterestRate] = useState(10.5);
+  const [interestRate, setInterestRate] = useState(10);
 
   const emi = useMemo(() => {
     // EMI = P × r × (1 + r)ⁿ / ((1 + r)ⁿ − 1)
@@ -68,7 +68,7 @@ export default function BusinessLoanPage() {
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF6B35] to-[#FF8C42]">Business Today</span>
                 </h1>
                 <p className="text-base md:text-lg text-gray-600 leading-relaxed max-w-md">
-                  Flexible funding solutions starting at <span className="font-semibold text-[#FF6B35]">10.5% p.a.</span> Get up to{' '}
+                  Flexible funding solutions starting at <span className="font-semibold text-[#FF6B35]">10% p.a. onwards.</span> Get up to{' '}
                   <span className="font-semibold text-[#FF6B35]">₹2 crore</span> to grow your business with minimal documentation.
                 </p>
                 <div className="grid grid-cols-2 gap-2 max-w-md">
@@ -97,7 +97,7 @@ export default function BusinessLoanPage() {
           <div className="w-full bg-transparent">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
               <div className="grid grid-cols-1 sm:grid-cols-3 sm:divide-x divide-orange-200 max-w-3xl mx-auto gap-4 sm:gap-0">
-                {[{ value: '10.5% – 24%', label: 'Interest Rate' }, { value: '₹1L – ₹2Cr', label: 'Loan Amount' }, { value: '1 – 7 yrs', label: 'Tenure' }].map(s => (
+                {[{ value: '10% – 24%', label: 'Interest Rate' }, { value: '₹1L – ₹2Cr', label: 'Loan Amount' }, { value: '1 – 7 yrs', label: 'Tenure' }].map(s => (
                   <div key={s.label} className="text-center sm:px-6 py-2 sm:py-0">
                     <p className="text-xl sm:text-2xl md:text-3xl font-bold text-[#FF6B35]">{s.value}</p>
                     <p className="text-xs text-gray-500 mt-0.5">{s.label}</p>
@@ -120,7 +120,7 @@ export default function BusinessLoanPage() {
                   {[
                     { label: 'I want to borrow:', val: `₹${fmt(loanAmount)}`, min: 100000, max: 20000000, step: 100000, value: loanAmount, set: setLoanAmount, lo: '₹1L', hi: '₹2Cr' },
                     { label: 'For a period of:', val: `${tenure} years`, min: 1, max: 7, step: 1, value: tenure, set: setTenure, lo: '1 yr', hi: '7 yrs' },
-                    { label: 'Interest rate:', val: `${interestRate.toFixed(1)}% p.a.`, min: 10.5, max: 24, step: 0.5, value: interestRate, set: setInterestRate, lo: '10.5%', hi: '24%' },
+                    { label: 'Interest rate:', val: `${interestRate.toFixed(1)}% p.a.`, min: 10, max: 24, step: 0.5, value: interestRate, set: setInterestRate, lo: '10%', hi: '24%' },
                   ].map(s => (
                     <div key={s.label}>
                       <div className="flex justify-between items-center mb-2">

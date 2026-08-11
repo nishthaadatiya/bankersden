@@ -270,7 +270,7 @@ export default function AboutUsPage() {
             {[
               { val: '30 yrs', label: 'Max Repayment Tenure', icon: TrendingUp },
               { val: '94.5%', label: 'Max Loan-to-Value', icon: Award },
-              { val: '7.10%', label: 'Starting Interest Rate', icon: Shield },
+              { val: '7.00%', label: 'Starting Interest Rate', icon: Shield },
               { val: 'Transparent & Quick', label: 'Services through trusted banking partners', icon: Users },
             ].map((s) => (
               <div key={s.label} className="bg-white rounded-2xl p-6 text-center shadow-md border border-gray-100 hover:border-orange-200 hover:shadow-xl transition-all duration-300 group hover:-translate-y-1">
