@@ -22,19 +22,19 @@ function Slider({ label, val, display, min, max, step, set, lo, hi }: {
   const isYears = display.includes('yrs');
   const isMonths = display.includes('months');
   const isPercent = display.includes('%');
-  
+
   return (
     <div>
       <div className="flex justify-between items-center mb-2">
         <p className="text-sm text-gray-600 font-medium">{label}</p>
         <div className="flex items-center bg-white border border-gray-300 rounded-lg overflow-hidden focus-within:ring-2 focus-within:ring-[#FF6B35] focus-within:border-transparent">
           {isRupee && <span className="pl-3 pr-1 text-gray-500 font-medium">₹</span>}
-          <input 
-            type="number" 
-            min={min} max={max} step={step} 
-            value={val} 
-            onChange={e => set(Number(e.target.value))} 
-            className="w-24 py-1 px-2 bg-transparent text-right font-bold text-gray-900 focus:outline-none text-sm" 
+          <input
+            type="number"
+            min={min} max={max} step={step}
+            value={val}
+            onChange={e => set(Number(e.target.value))}
+            className="w-24 py-1 px-2 bg-transparent text-right font-bold text-gray-900 focus:outline-none text-sm"
           />
           {isYears && <span className="pr-3 pl-1 text-gray-500 font-medium">yrs</span>}
           {isMonths && <span className="pr-3 pl-1 text-gray-500 font-medium">mo</span>}
@@ -58,9 +58,9 @@ function Donut({ pct, label, val, id }: { pct: number; label: string; val: strin
   const filled = Math.min(1, Math.max(0, pct)) * circ;
   return (
     <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} className="drop-shadow-md">
-      <circle cx={size/2} cy={size/2} r={r + sw/2 + 6} fill="none" stroke="#FF6B35" strokeWidth="1.5" opacity="0.12" />
-      <circle cx={size/2} cy={size/2} r={r} fill="none" stroke="#FFE8DF" strokeWidth={sw} />
-      <circle cx={size/2} cy={size/2} r={r} fill="none" stroke={`url(#g_${id})`} strokeWidth={sw}
+      <circle cx={size / 2} cy={size / 2} r={r + sw / 2 + 6} fill="none" stroke="#FF6B35" strokeWidth="1.5" opacity="0.12" />
+      <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke="#FFE8DF" strokeWidth={sw} />
+      <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke={`url(#g_${id})`} strokeWidth={sw}
         strokeDasharray={`${filled} ${circ - filled}`}
         strokeDashoffset={circ * 0.25} strokeLinecap="round"
         style={{ transition: 'stroke-dasharray 0.6s ease' }} />
@@ -70,8 +70,8 @@ function Donut({ pct, label, val, id }: { pct: number; label: string; val: strin
           <stop offset="100%" stopColor="#FF8C42" />
         </linearGradient>
       </defs>
-      <text x={size/2} y={size/2 - 8} textAnchor="middle" fontSize="10" fill="#9ca3af">{label}</text>
-      <text x={size/2} y={size/2 + 12} textAnchor="middle" fontSize="14" fontWeight="800" fill="#FF6B35">{val}</text>
+      <text x={size / 2} y={size / 2 - 8} textAnchor="middle" fontSize="10" fill="#9ca3af">{label}</text>
+      <text x={size / 2} y={size / 2 + 12} textAnchor="middle" fontSize="14" fontWeight="800" fill="#FF6B35">{val}</text>
     </svg>
   );
 }
@@ -195,7 +195,7 @@ function EligibilityTab() {
     ? (availableEmi * (Math.pow(1 + r, n) - 1)) / (r * Math.pow(1 + r, n))
     : 0;
   const qualifying = availableEmi > 0;
-  
+
   // For the chart, show existing EMI vs available EMI out of max permissible deduction
   const usedPct = maxPermissibleDeduction > 0 ? existingEmi / maxPermissibleDeduction : 0;
 
@@ -208,7 +208,7 @@ function EligibilityTab() {
         <div className="px-6 py-6 space-y-6">
           <Slider label="Gross Monthly Income" val={income} display={`₹${fmt(income)}`}
             min={10000} max={1000000} step={5000} set={setIncome} lo="₹10K" hi="₹10L" />
-          <Slider label="Total Monthly EMIs" val={existingEmi} display={`₹${fmt(existingEmi)}`}
+          <Slider label="Total Monthly EMIs + Deductions" val={existingEmi} display={`₹${fmt(existingEmi)}`}
             min={0} max={500000} step={1000} set={setExistingEmi} lo="₹0" hi="₹5L" />
           <Slider label="Interest Rate %" val={rate} display={`${rate.toFixed(1)}% p.a.`}
             min={6} max={20} step={0.5} set={setRate} lo="6%" hi="20%" />
@@ -295,7 +295,7 @@ function PartPaymentTab() {
           <Slider label="Original Tenure" val={tenure} display={`${tenure} yrs`}
             min={1} max={30} step={1} set={setTenure} lo="1 yr" hi="30 yrs" />
           <Slider label="Months Already Paid" val={paidMonths} display={`${paidMonths} months`}
-            min={1} max={Math.max(1, n - 1)} step={1} set={setPaidMonths} lo="1 mo" hi={`${Math.max(1, n-1)} mo`} />
+            min={1} max={Math.max(1, n - 1)} step={1} set={setPaidMonths} lo="1 mo" hi={`${Math.max(1, n - 1)} mo`} />
           <Slider label="Part-Payment Amount" val={partPayment}
             display={`₹${fmt(partPayment)}`}
             min={10000} max={Math.max(10000, Math.round(Math.max(0, outstanding) * 0.9))} step={10000}
@@ -371,11 +371,10 @@ export default function CalculatorsPage() {
                   <button
                     key={tab.id}
                     onClick={() => setActiveTab(tab.id)}
-                    className={`flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm transition-all duration-300 ${
-                      active
+                    className={`flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm transition-all duration-300 ${active
                         ? 'bg-gradient-to-r from-[#FF6B35] to-[#FF8C42] text-white shadow-lg scale-[1.03]'
                         : 'text-gray-500 hover:text-gray-800 hover:bg-gray-50'
-                    }`}
+                      }`}
                   >
                     <tab.icon className="w-4 h-4" />
                     {tab.label}
