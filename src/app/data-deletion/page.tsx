@@ -1,8 +1,8 @@
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Data Deletion Request - Banker\'s Den',
-  description: 'Request deletion of your personal data from Banker\'s Den including WhatsApp conversations and application information.',
+  title: 'User Data Deletion Instructions - Banker\'s Den',
+  description: 'Step-by-step instructions for requesting deletion of your personal data from Banker\'s Den, including Facebook / Meta Login, WhatsApp, and loan application information.',
   robots: 'index, follow',
 };
 
@@ -11,11 +11,14 @@ export default function DataDeletionPage() {
     <div className="min-h-screen bg-gray-50 py-12">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-white rounded-lg shadow-lg p-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-8">Data Deletion Request</h1>
+          <h1 className="text-3xl font-bold text-gray-900 mb-4">User Data Deletion &amp; Instructions</h1>
+          <p className="text-gray-600 mb-6">
+            Data Deletion Instructions for Login Dialog, App Users, and Account Holders
+          </p>
           
           <div className="prose prose-lg max-w-none">
             <p className="text-gray-600 mb-6">
-              <strong>Last Updated:</strong> December 17, 2024
+              <strong>Last Updated:</strong> March 2025
             </p>
 
             <section className="mb-8">
@@ -71,13 +74,30 @@ export default function DataDeletionPage() {
                 <h3 className="text-xl font-medium text-green-900 mb-4">📱 WhatsApp Request</h3>
                 <p className="text-green-800 mb-3">Message us on WhatsApp:</p>
                 <p className="text-green-900 font-medium">
-                  <a href="https://wa.me/919145023840?text=I%20want%20to%20delete%20my%20data%20from%20Banker's%20Den" 
+                  <a href="https://wa.me/919834784681?text=I%20want%20to%20delete%20my%20data%20from%20Banker's%20Den" 
                      className="hover:underline" target="_blank" rel="noopener noreferrer">
-                    +91 9145023840
+                    +91 98347 84681
                   </a>
                 </p>
                 <p className="text-green-700 text-sm mt-2">
                   Message: "I want to delete my data from Banker's Den"
+                </p>
+              </div>
+
+              <div className="bg-indigo-50 border border-indigo-200 rounded-lg p-6 mb-6">
+                <h3 className="text-xl font-medium text-indigo-900 mb-4">🌐 Facebook / Meta App Data Deletion Instructions</h3>
+                <p className="text-indigo-900 mb-3 text-sm">
+                  If you used Facebook or Meta Login with Banker's Den app, you can revoke access and delete your activity and data by following these steps:
+                </p>
+                <ol className="list-decimal pl-6 space-y-2 text-indigo-950 text-sm mb-4">
+                  <li>Go to your Facebook profile's <strong>Settings &amp; Privacy</strong> and select <strong>Settings</strong>.</li>
+                  <li>In the left sidebar, click on <strong>Apps and Websites</strong> to view all apps linked with your Facebook account.</li>
+                  <li>Search for or select <strong>Banker's Den</strong> from the list.</li>
+                  <li>Click the <strong>Remove</strong> button to disconnect Banker's Den and revoke permissions.</li>
+                  <li>To request complete removal of all your stored profile data (name, email, identifier) from our servers, send an email to <a href="mailto:privacy@bankersdens.com?subject=Facebook%20Data%20Deletion%20Request" className="font-semibold underline">privacy@bankersdens.com</a> with the subject <em>"Facebook Data Deletion Request"</em>.</li>
+                </ol>
+                <p className="text-indigo-800 text-sm">
+                  Once your request is received, we will verify your identity, purge your data from our active database within 48-72 hours, and send you a confirmation email with a confirmation code.
                 </p>
               </div>
             </section>
@@ -182,7 +202,7 @@ export default function DataDeletionPage() {
                 <h3 className="text-lg font-medium text-gray-800 mb-3">Data Protection Officer</h3>
                 <ul className="space-y-2 text-gray-700">
                   <li><strong>Email:</strong> <a href="mailto:privacy@bankersdens.com" className="text-blue-600 hover:underline">privacy@bankersdens.com</a></li>
-                  <li><strong>WhatsApp:</strong> <a href="https://wa.me/919145023840" className="text-blue-600 hover:underline">+91 9145023840</a></li>
+                  <li><strong>WhatsApp:</strong> <a href="https://wa.me/919834784681" className="text-blue-600 hover:underline">+91 98347 84681</a></li>
                   <li><strong>Website:</strong> <a href="https://bankersdens.com" className="text-blue-600 hover:underline">https://bankersdens.com</a></li>
                   <li><strong>Response Time:</strong> Within 24 hours</li>
                 </ul>

@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { Menu, X, LogOut, User as UserIcon } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import { GoogleLogin } from '@react-oauth/google';
@@ -11,6 +11,7 @@ export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
+  const router = useRouter();
 
   // Pages with dark hero backgrounds where transparent navbar works
   const darkHeroPages = ['/'];
@@ -232,9 +233,12 @@ export const Header = () => {
             ) : (
               <div className="scale-90 origin-right">
                 <GoogleLogin
-                  onSuccess={(credentialResponse) => {
+                  onSuccess={async (credentialResponse) => {
                     if (credentialResponse.credential) {
-                      login(credentialResponse.credential);
+                      const res = await login(credentialResponse.credential);
+                      if (res.requiresWhatsApp) {
+                        router.push('/login?prompt=whatsapp');
+                      }
                     }
                   }}
                   onError={() => console.log('Login Failed')}
@@ -247,7 +251,7 @@ export const Header = () => {
 
             {!isAuthenticated && (
               <Link
-                href="/contact"
+                href="/login"
                 className="bg-gradient-to-r from-[#FF6B35] to-[#FF8C42] hover:from-[#FF8C42] hover:to-[#FF6B35] text-white px-6 py-2 rounded-full font-medium shadow-lg transition-all duration-200 hover:scale-105"
               >
                 Get Started
@@ -292,9 +296,13 @@ export const Header = () => {
               {!isAuthenticated ? (
                 <div className="px-4 py-2">
                   <GoogleLogin
-                    onSuccess={(credentialResponse) => {
+                    onSuccess={async (credentialResponse) => {
                       if (credentialResponse.credential) {
-                        login(credentialResponse.credential);
+                        const res = await login(credentialResponse.credential);
+                        if (res.requiresWhatsApp) {
+                          setIsMenuOpen(false);
+                          router.push('/login?prompt=whatsapp');
+                        }
                       }
                     }}
                     onError={() => console.log('Login Failed')}
@@ -326,7 +334,7 @@ export const Header = () => {
               <Link href="/blog" onClick={() => setIsMenuOpen(false)} className={`${colors.text} font-medium py-2 px-4 ${colors.hoverBg} rounded-lg transition-colors`}>Blog</Link>
               <Link href="/contact" onClick={() => setIsMenuOpen(false)} className={`${colors.text} font-medium py-2 px-4 ${colors.hoverBg} rounded-lg transition-colors`}>Contact</Link>
               {!isAuthenticated && (
-                <Link href="/contact" className={`${colors.buttonBg} px-4 py-2 rounded-lg font-medium text-center mt-2 transition-colors`}>Get Started</Link>
+                <Link href="/login" onClick={() => setIsMenuOpen(false)} className={`${colors.buttonBg} px-4 py-2 rounded-lg font-medium text-center mt-2 transition-colors`}>Get Started</Link>
               )}
             </div>
           </div>

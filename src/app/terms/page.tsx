@@ -2,8 +2,8 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'Terms & Conditions - Banker\'s Den',
-  description: 'Terms and Conditions for using Banker\'s Den services including loan applications and email communications.',
+  title: 'Terms of Service - Banker\'s Den',
+  description: 'Terms of Service for Banker\'s Den - Conditions of use for Login dialog, application details, loan processing, and digital tools.',
   robots: 'index, follow',
 };
 
@@ -12,17 +12,18 @@ export default function TermsPage() {
     <div className="min-h-screen bg-gray-50 py-12">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-white rounded-lg shadow-lg p-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-8">Terms & Conditions</h1>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">Terms of Service</h1>
+          <p className="text-gray-600 mb-6">Terms of Service for Login Dialog, App Details, and Financial Services</p>
           
           <div className="prose prose-lg max-w-none">
             <p className="text-gray-600 mb-6">
-              <strong>Last Updated:</strong> December 17, 2024
+              <strong>Last Updated:</strong> March 2025
             </p>
 
             <section className="mb-8">
               <h2 className="text-2xl font-semibold text-gray-900 mb-4">1. Acceptance of Terms</h2>
               <p className="text-gray-700 mb-4">
-                By accessing and using Banker's Den website (<a href="https://bankersdens.com" className="text-blue-600 hover:underline">bankersdens.com</a>) and our services, you accept and agree to be bound by the terms and provision of this agreement.
+                By accessing and using Banker's Den website (<a href="https://bankersdens.com" className="text-blue-600 hover:underline">bankersdens.com</a>), our login dialog, mobile or web applications, and services, you accept and agree to be bound by the terms and provisions of this agreement.
               </p>
             </section>
 
@@ -54,19 +55,31 @@ export default function TermsPage() {
             </section>
 
             <section className="mb-8">
-              <h2 className="text-2xl font-semibold text-gray-900 mb-4">4. User Responsibilities</h2>
+              <h2 className="text-2xl font-semibold text-gray-900 mb-4">4. Account Registration &amp; Login Dialog</h2>
+              <p className="text-gray-700 mb-4">
+                To access certain features, you may register or authenticate using our login dialog or third-party identity providers (such as Meta / Facebook Login or Google Sign-In).
+              </p>
+              <ul className="list-disc pl-6 text-gray-700 mb-4">
+                <li>You agree to provide true, current, and complete information during authentication.</li>
+                <li>You are solely responsible for maintaining the confidentiality of your session and credentials.</li>
+                <li>You may disconnect third-party login permissions at any time through your respective platform settings or request data deletion via our <Link href="/data-deletion" className="text-blue-600 hover:underline">Data Deletion Instructions</Link>.</li>
+              </ul>
+            </section>
+
+            <section className="mb-8">
+              <h2 className="text-2xl font-semibold text-gray-900 mb-4">5. User Responsibilities</h2>
               <p className="text-gray-700 mb-4">You agree to:</p>
               <ul className="list-disc pl-6 text-gray-700 mb-4">
                 <li>Provide accurate and complete information</li>
                 <li>Keep your login credentials secure</li>
                 <li>Use our services only for lawful purposes</li>
-                <li>Not misuse or abuse our services</li>
+                <li>Not misuse, scrape, or abuse our services</li>
                 <li>Comply with all applicable laws and regulations</li>
               </ul>
             </section>
 
             <section className="mb-8">
-              <h2 className="text-2xl font-semibold text-gray-900 mb-4">5. Loan Applications</h2>
+              <h2 className="text-2xl font-semibold text-gray-900 mb-4">6. Loan Applications</h2>
               <p className="text-gray-700 mb-4">
                 Banker's Den acts as an intermediary between customers and financial institutions. We do not guarantee loan approval and final decisions rest with the respective lenders.
               </p>
@@ -79,35 +92,35 @@ export default function TermsPage() {
             </section>
 
             <section className="mb-8">
-              <h2 className="text-2xl font-semibold text-gray-900 mb-4">6. Privacy and Data Protection</h2>
+              <h2 className="text-2xl font-semibold text-gray-900 mb-4">7. Privacy and Data Protection</h2>
               <p className="text-gray-700 mb-4">
-                Your privacy is important to us. Please review our <Link href="/privacy-policy" className="text-blue-600 hover:underline">Privacy Policy</Link> to understand how we collect, use, and protect your information.
+                Your privacy is important to us. Please review our <Link href="/privacy-policy" className="text-blue-600 hover:underline">Privacy Policy</Link> and our <Link href="/data-deletion" className="text-blue-600 hover:underline">User Data Deletion Instructions</Link> to understand how we collect, use, protect, and delete your information.
               </p>
             </section>
 
             <section className="mb-8">
-              <h2 className="text-2xl font-semibold text-gray-900 mb-4">7. Disclaimer</h2>
+              <h2 className="text-2xl font-semibold text-gray-900 mb-4">8. Disclaimer</h2>
               <p className="text-gray-700 mb-4">
                 The information on this website is for general information purposes only. We make no representations or warranties about the accuracy, completeness, or suitability of the information.
               </p>
             </section>
 
             <section className="mb-8">
-              <h2 className="text-2xl font-semibold text-gray-900 mb-4">8. Limitation of Liability</h2>
+              <h2 className="text-2xl font-semibold text-gray-900 mb-4">9. Limitation of Liability</h2>
               <p className="text-gray-700 mb-4">
                 Banker's Den shall not be liable for any direct, indirect, incidental, or consequential damages arising from the use of our services.
               </p>
             </section>
 
             <section className="mb-8">
-              <h2 className="text-2xl font-semibold text-gray-900 mb-4">9. Changes to Terms</h2>
+              <h2 className="text-2xl font-semibold text-gray-900 mb-4">10. Changes to Terms</h2>
               <p className="text-gray-700 mb-4">
                 We reserve the right to modify these terms at any time. Changes will be effective immediately upon posting on this page.
               </p>
             </section>
 
             <section className="mb-8">
-              <h2 className="text-2xl font-semibold text-gray-900 mb-4">10. Contact Information</h2>
+              <h2 className="text-2xl font-semibold text-gray-900 mb-4">11. Contact Information</h2>
               <div className="bg-gray-50 p-6 rounded-lg">
                 <ul className="space-y-2 text-gray-700">
                   <li><strong>Email:</strong> <a href="mailto:support@bankersdens.com" className="text-blue-600 hover:underline">support@bankersdens.com</a></li>

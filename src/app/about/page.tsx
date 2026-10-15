@@ -324,7 +324,7 @@ export default function AboutUsPage() {
             Your trusted financial partner — for life.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/contact" className="bg-white text-[#FF6B35] hover:bg-orange-50 font-bold rounded-full px-10 py-4 shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 inline-block">
+            <Link href="/login" className="bg-white text-[#FF6B35] hover:bg-orange-50 font-bold rounded-full px-10 py-4 shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 inline-block">
               Get Started
             </Link>
             <Link href="/loans/home" className="border-2 border-white text-white hover:bg-white hover:text-[#FF6B35] font-bold rounded-full px-10 py-4 transition-all duration-300 inline-block">

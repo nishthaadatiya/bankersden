@@ -90,7 +90,7 @@ export default function DisclaimerPage() {
               <div className="bg-gray-50 p-6 rounded-lg">
                 <ul className="space-y-2 text-gray-700">
                   <li><strong>Email:</strong> <a href="mailto:support@bankersdens.com" className="text-blue-600 hover:underline">support@bankersdens.com</a></li>
-                  <li><strong>WhatsApp:</strong> <a href="https://wa.me/919145023840" className="text-blue-600 hover:underline">+91 9145023840</a></li>
+                  <li><strong>WhatsApp:</strong> <a href="https://wa.me/919834784681" className="text-blue-600 hover:underline">+91 98347 84681</a></li>
                   <li><strong>Website:</strong> <a href="https://bankersdens.com" className="text-blue-600 hover:underline">https://bankersdens.com</a></li>
                 </ul>
               </div>

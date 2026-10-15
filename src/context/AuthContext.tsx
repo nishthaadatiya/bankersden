@@ -1,18 +1,22 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { jwtDecode } from 'jwt-decode';
 
 interface User {
   name: string;
   email: string;
   picture: string;
+  phone?: string;
+  isOnboarded?: boolean;
+  googleId?: string;
 }
 
 interface AuthContextType {
   user: User | null;
-  login: (credential: string) => Promise<boolean>;
+  login: (credential: string) => Promise<{ success: boolean; requiresWhatsApp?: boolean; message?: string }>;
+  loginWithWhatsApp: (userData: User) => void;
   logout: () => void;
+  updateUser: (updates: Partial<User>) => void;
   isAuthenticated: boolean;
   loading: boolean;
 }
@@ -31,7 +35,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setLoading(false);
   }, []);
 
-  const login = async (credential: string): Promise<boolean> => {
+  const login = async (credential: string): Promise<{ success: boolean; requiresWhatsApp?: boolean; message?: string }> => {
     try {
       const response = await fetch('/api/auth/google', {
         method: 'POST',
@@ -40,18 +44,43 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       });
 
       const data = await response.json();
+
       if (data.success) {
-        setUser(data.user);
-        localStorage.setItem('user', JSON.stringify(data.user));
-        return true;
+        const userData: User = {
+          name: data.user.name,
+          email: data.user.email,
+          picture: data.user.picture,
+          phone: data.user.phone,
+          isOnboarded: data.user.isOnboarded,
+          googleId: data.user.googleId,
+        };
+        setUser(userData);
+        localStorage.setItem('user', JSON.stringify(userData));
+        return { success: true };
+      } else if (data.requiresWhatsApp) {
+        return { success: false, requiresWhatsApp: true, message: data.message };
       } else {
         console.error('Login failed:', data.message);
-        return false;
+        return { success: false, message: data.message };
       }
     } catch (error) {
       console.error('Auth error:', error);
-      return false;
+      return { success: false, message: 'Authentication failed' };
     }
+  };
+
+  const loginWithWhatsApp = (userData: User) => {
+    setUser(userData);
+    localStorage.setItem('user', JSON.stringify(userData));
+  };
+
+  const updateUser = (updates: Partial<User>) => {
+    setUser((prev) => {
+      if (!prev) return prev;
+      const updated = { ...prev, ...updates };
+      localStorage.setItem('user', JSON.stringify(updated));
+      return updated;
+    });
   };
 
   const logout = () => {
@@ -60,7 +89,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, isAuthenticated: !!user, loading }}>
+    <AuthContext.Provider value={{ user, login, loginWithWhatsApp, updateUser, logout, isAuthenticated: !!user, loading }}>
       {children}
     </AuthContext.Provider>
   );

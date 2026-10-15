@@ -4,6 +4,7 @@ import './globals.css'
 import { ClientLayout } from '@/components/ClientLayout'
 import { Providers } from '@/components/Providers'
 import Chatbot from '@/components/Chatbot'
+import WhatsAppButton from '@/components/WhatsAppButton'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -99,6 +100,7 @@ export default function RootLayout({
         <Providers>
           <ClientLayout>{children}</ClientLayout>
           <Chatbot />
+          <WhatsAppButton phoneNumber="15556492486" />
         </Providers>
       </body>
     </html>

@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Privacy Policy - Banker\'s Den',
-  description: 'Privacy Policy for Banker\'s Den - How we collect, use, and protect your personal information including email communications.',
+  description: 'Privacy Policy for Banker\'s Den, including Login Dialog, App details, user data processing, email, and loan application services.',
   robots: 'index, follow',
 };
 
@@ -11,17 +11,18 @@ export default function PrivacyPolicyPage() {
     <div className="min-h-screen bg-gray-50 py-12">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-white rounded-lg shadow-lg p-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-8">Privacy Policy</h1>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">Privacy Policy</h1>
+          <p className="text-gray-600 mb-6">Privacy Policy for Login Dialog, App Details, and Services</p>
           
           <div className="prose prose-lg max-w-none">
             <p className="text-gray-600 mb-6">
-              <strong>Last Updated:</strong> December 17, 2024
+              <strong>Last Updated:</strong> March 2025
             </p>
 
             <section className="mb-8">
               <h2 className="text-2xl font-semibold text-gray-900 mb-4">1. Introduction</h2>
               <p className="text-gray-700 mb-4">
-                Banker's Den ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website <a href="https://bankersdens.com" className="text-blue-600 hover:underline">bankersdens.com</a> and use our services, including our email communication services.
+                Banker's Den ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website <a href="https://bankersdens.com" className="text-blue-600 hover:underline">bankersdens.com</a>, use our login dialog, mobile or web applications, and access our loan advisory and email communication services.
               </p>
               <p className="text-gray-700">
                 By using our services, you consent to the data practices described in this policy.
@@ -62,7 +63,20 @@ export default function PrivacyPolicyPage() {
                 <li>Email metadata (subject lines, attachments)</li>
               </ul>
 
-              <h3 className="text-xl font-medium text-gray-800 mb-3">2.3 Automatically Collected Information</h3>
+              <h3 className="text-xl font-medium text-gray-800 mb-3">2.3 Social Login &amp; Authentication Data (Meta / Facebook / Google)</h3>
+              <p className="text-gray-700 mb-4">
+                When you choose to register or sign in to Banker's Den using third-party identity providers such as Facebook / Meta Login or Google Sign-In, we receive authentication data that you authorize the platform to share with us:
+              </p>
+              <ul className="list-disc pl-6 text-gray-700 mb-4">
+                <li>Your name and profile avatar/picture</li>
+                <li>Your verified email address</li>
+                <li>Your unique user account ID provided by the platform</li>
+              </ul>
+              <p className="text-gray-700 mb-6">
+                We use this information solely to authenticate your identity, create or link your Banker's Den account, secure your session, and pre-fill your loan inquiries. We do not sell, rent, or trade your social login information to third parties, nor do we post anything to your social profiles without your explicit permission. You may revoke access at any time through your platform settings or request complete data deletion via our <a href="/data-deletion" className="text-blue-600 hover:underline">Data Deletion Instructions</a> page.
+              </p>
+
+              <h3 className="text-xl font-medium text-gray-800 mb-3">2.4 Automatically Collected Information</h3>
               <ul className="list-disc pl-6 text-gray-700 mb-6">
                 <li>IP address and browser information</li>
                 <li>Device type and operating system</li>

@@ -1,14 +1,15 @@
 import mongoose from 'mongoose';
+import dns from 'dns';
 
-const MONGODB_URI = process.env.MONGODB_URI || '';
+// Configure DNS to prevent Windows querySrv ECONNREFUSED when resolving Atlas SRV records
+try {
+  dns.setServers(['8.8.8.8', '1.1.1.1']);
+  if (typeof dns.setDefaultResultOrder === 'function') {
+    dns.setDefaultResultOrder('ipv4first');
+  }
+} catch (e) {}
 
-if (!MONGODB_URI) {
-  throw new Error('❌ MONGODB_URI is not defined in your .env file');
-}
-
-// Extract host & db name for display (hide credentials)
-const safeURI = MONGODB_URI.replace(/\/\/([^:]+):([^@]+)@/, '//***:***@');
-const dbName = MONGODB_URI.split('/').pop()?.split('?')[0] || 'unknown';
+const getMongoURI = () => process.env.MONGODB_URI || '';
 
 interface MongooseCache {
   conn: typeof mongoose | null;
@@ -26,6 +27,14 @@ if (!global.mongoose) {
 }
 
 async function connectDB(): Promise<typeof mongoose> {
+  const uri = getMongoURI();
+  if (!uri) {
+    throw new Error('❌ MONGODB_URI is not defined in your environment variables');
+  }
+
+  const safeURI = uri.replace(/\/\/([^:]+):([^@]+)@/, '//***:***@');
+  const dbName = uri.split('/').pop()?.split('?')[0] || 'unknown';
+
   // Already connected — reuse the cached connection
   if (cached.conn) {
     const state = cached.conn.connection.readyState;
@@ -35,11 +44,14 @@ async function connectDB(): Promise<typeof mongoose> {
   }
 
   if (!cached.promise) {
+    try {
+      dns.setServers(['8.8.8.8', '1.1.1.1']);
+    } catch (e) {}
     console.log(`[MongoDB] 🔌 Connecting to: ${safeURI}`);
     const startTime = Date.now();
 
     cached.promise = mongoose
-      .connect(MONGODB_URI, { bufferCommands: false })
+      .connect(uri, { bufferCommands: false })
       .then((m) => {
         const elapsed = Date.now() - startTime;
         const host = m.connection.host;

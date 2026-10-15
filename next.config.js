@@ -76,6 +76,42 @@ const nextConfig = {
     ]
   },
 
+  // Redirects for legal and compliance aliases
+  async redirects() {
+    return [
+      {
+        source: '/privacy',
+        destination: '/privacy-policy',
+        permanent: true,
+      },
+      {
+        source: '/terms-of-service',
+        destination: '/terms',
+        permanent: true,
+      },
+      {
+        source: '/terms-and-conditions',
+        destination: '/terms',
+        permanent: true,
+      },
+      {
+        source: '/tos',
+        destination: '/terms',
+        permanent: true,
+      },
+      {
+        source: '/user-data-deletion',
+        destination: '/data-deletion',
+        permanent: true,
+      },
+      {
+        source: '/data-deletion-instructions',
+        destination: '/data-deletion',
+        permanent: true,
+      },
+    ]
+  },
+
   // Reduce bundle size by not including server-only packages on the client
   transpilePackages: [],
 }
