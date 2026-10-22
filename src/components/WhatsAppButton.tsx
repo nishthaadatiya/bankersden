@@ -8,7 +8,7 @@ interface WhatsAppButtonProps {
 }
 
 export default function WhatsAppButton({
-  phoneNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '15556492486',
+  phoneNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '919834784681',
   defaultMessage = 'Hi',
 }: WhatsAppButtonProps) {
   const cleanNumber = phoneNumber.replace(/\D/g, '');
