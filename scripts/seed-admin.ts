@@ -8,17 +8,19 @@
  * already exists (idempotent).
  */
 
+import './dns-fix';
 import mongoose from 'mongoose';
 import * as dotenv from 'dotenv';
 import path from 'path';
 
 // Load .env from project root
 dotenv.config({ path: path.resolve(process.cwd(), '.env') });
+dotenv.config({ path: path.resolve(process.cwd(), '.env.local') });
 
 const MONGODB_URI = process.env.MONGODB_URI;
 const ADMIN_USERNAME = process.env.ADMIN_USERNAME || 'admin';
-const ADMIN_EMAIL = process.env.ADMIN_EMAIL;
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
+const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'admin@bankersdens.com';
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'admin';
 
 if (!MONGODB_URI) {
   console.error('❌  MONGODB_URI is not set in .env');

@@ -22,6 +22,7 @@ import {
   ChevronDown,
   ChevronUp
 } from 'lucide-react';
+import { AdminWhatsAppChats } from '@/components/admin/AdminWhatsAppChats';
 
 interface Lead {
   _id: string;
@@ -86,7 +87,7 @@ interface ChatSession {
 
 export default function AdminDashboard() {
   const router = useRouter();
-  const [activeTab, setActiveTab] = useState<'leads' | 'queries' | 'chatsessions'>('leads');
+  const [activeTab, setActiveTab] = useState<'leads' | 'queries' | 'chatsessions' | 'whatsapp'>('leads');
   const [leads, setLeads] = useState<Lead[]>([]);
   const [queries, setQueries] = useState<Query[]>([]);
   const [chatSessions, setChatSessions] = useState<ChatSession[]>([]);
@@ -119,7 +120,7 @@ export default function AdminDashboard() {
       fetchLeads();
     } else if (activeTab === 'queries') {
       fetchQueries();
-    } else {
+    } else if (activeTab === 'chatsessions') {
       fetchChatSessions();
     }
   }, [router, filters, activeTab]);
@@ -344,6 +345,15 @@ export default function AdminDashboard() {
             >
               <Bot className="w-5 h-5" />
               Chat Sessions
+            </button>
+            <button
+              onClick={() => setActiveTab('whatsapp')}
+              className={`flex items-center gap-2 px-6 py-2 rounded-lg font-medium transition-colors ${
+                activeTab === 'whatsapp' ? 'bg-[#25D366] text-white shadow-sm' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+              }`}
+            >
+              <MessageSquare className="w-5 h-5 fill-current" />
+              WhatsApp Live Chats
             </button>
           </div>
         </div>
@@ -599,6 +609,8 @@ export default function AdminDashboard() {
               )}
             </div>
           </div>
+        ) : activeTab === 'whatsapp' ? (
+          <AdminWhatsAppChats />
         ) : (
           <div className="bg-white rounded-lg shadow overflow-hidden">
             <div className="p-6 border-b bg-gray-50 flex justify-between items-center">
