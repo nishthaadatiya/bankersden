@@ -22,10 +22,29 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Phone number is required' }, { status: 400 });
     }
 
-    const cleanPhone = phone.replace(/\D/g, '');
+    let cleanPhone = phone.replace(/\D/g, '');
+    if (cleanPhone.length === 10) {
+      cleanPhone = `91${cleanPhone}`;
+    }
+
     if (cleanPhone.length < 10) {
       return NextResponse.json(
         { error: 'Invalid phone number. Must be at least 10 digits.' },
+        { status: 400 }
+      );
+    }
+
+    const businessPhone = (
+      process.env.ADMIN_WHATSAPP ||
+      process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ||
+      ''
+    ).replace(/\D/g, '');
+    if (businessPhone && cleanPhone.endsWith(businessPhone.slice(-10))) {
+      return NextResponse.json(
+        {
+          error:
+            "Cannot send OTP to the business's own WhatsApp number. Please test with a different mobile number.",
+        },
         { status: 400 }
       );
     }
@@ -62,9 +81,19 @@ export async function POST(request: NextRequest) {
 
     // 3. Send via WhatsApp Meta Cloud API
     const whatsappService = new WhatsAppService();
-    const message = `🏦 *Banker's Den Verification Code*\n\nYour login OTP is: *${otp}*\n\nValid for 5 minutes. Do not share this code with anyone.`;
 
-    const sendResult = await whatsappService.sendMessage(cleanPhone, message);
+    // Outbound OTP outside 24h window requires an approved Meta template
+    let sendResult = await whatsappService.sendOtpTemplate(cleanPhone, otp);
+
+    // If template sending failed (e.g. template not yet approved in Meta), try standard message fallback
+    if (!sendResult.success) {
+      console.warn('⚠️ Template send attempt failed, trying standard message fallback:', sendResult.error);
+      const message = `🏦 *Banker's Den Verification Code*\n\nYour login OTP is: *${otp}*\n\nValid for 5 minutes. Do not share this code with anyone.`;
+      const fallbackResult = await whatsappService.sendMessage(cleanPhone, message);
+      if (fallbackResult.success) {
+        sendResult = fallbackResult;
+      }
+    }
 
     if (!sendResult.success) {
       console.warn('⚠️ Meta WhatsApp delivery warning:', sendResult.error);

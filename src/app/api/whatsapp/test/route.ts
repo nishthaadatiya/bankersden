@@ -61,14 +61,14 @@ export async function GET() {
   }
 }
 
-// POST: Send test WhatsApp text message (works within 24h window)
+// POST: Send test WhatsApp message (text within 24h window or template anytime)
 export async function POST(request: NextRequest) {
   try {
-    const { phone, message } = await request.json();
+    const { phone, message, isTemplate, otp } = await request.json();
 
-    if (!phone || !message) {
+    if (!phone) {
       return NextResponse.json(
-        { error: 'Phone number and message are required' },
+        { error: 'Phone number is required' },
         { status: 400 }
       );
     }
@@ -101,12 +101,24 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    const result = await whatsappService.sendMessage(phone, message);
+    let result;
+    if (isTemplate) {
+      const codeToSend = otp || '123456';
+      result = await whatsappService.sendOtpTemplate(phone, codeToSend);
+    } else {
+      if (!message) {
+        return NextResponse.json(
+          { error: 'Message text is required when not sending template' },
+          { status: 400 }
+        );
+      }
+      result = await whatsappService.sendMessage(phone, message);
+    }
 
     if (result.success) {
       return NextResponse.json({
         success: true,
-        message: 'WhatsApp message sent successfully',
+        message: isTemplate ? 'WhatsApp OTP template sent successfully' : 'WhatsApp message sent successfully',
         messageId: result.messageId,
         recipient: phone,
         customerServiceWindow: windowStatus,

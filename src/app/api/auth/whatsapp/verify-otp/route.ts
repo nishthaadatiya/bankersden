@@ -17,7 +17,10 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const cleanPhone = phone.replace(/\D/g, '');
+    let cleanPhone = phone.replace(/\D/g, '');
+    if (cleanPhone.length === 10) {
+      cleanPhone = `91${cleanPhone}`;
+    }
     const cleanOtp = otp.toString().trim();
 
     let matched = false;

@@ -88,6 +88,137 @@ export class WhatsAppService {
   }
 
   /**
+   * Send an OTP using a pre-approved Meta WhatsApp Template.
+   * Required for initiating messages outside the 24-hour customer service window.
+   */
+  async sendOtpTemplate(
+    to: string,
+    otp: string,
+    options?: {
+      templateName?: string;
+      languageCode?: string;
+      category?: 'AUTHENTICATION' | 'UTILITY';
+    }
+  ): Promise<WhatsAppSendResult> {
+    if (!this.isConfigured()) {
+      console.warn('⚠️ WhatsApp API not configured: missing WHATSAPP_PHONE_NUMBER_ID or WHATSAPP_ACCESS_TOKEN');
+      return {
+        success: false,
+        error: 'WhatsApp service not configured in environment variables.',
+      };
+    }
+
+    const sanitizedTo = to.replace(/\D/g, '');
+    const templateName =
+      options?.templateName || process.env.WHATSAPP_OTP_TEMPLATE_NAME || 'bankersden_otp';
+    const languageCode =
+      options?.languageCode || process.env.WHATSAPP_OTP_TEMPLATE_LANG || 'en_US';
+    const category = (
+      options?.category ||
+      process.env.WHATSAPP_OTP_TEMPLATE_CATEGORY ||
+      'AUTHENTICATION'
+    ).toUpperCase();
+
+    const url = `https://graph.facebook.com/${this.apiVersion}/${this.phoneNumberId}/messages`;
+
+    let components: any[] = [];
+
+    if (category === 'AUTHENTICATION') {
+      // Meta custom Authentication template: requires body params (OTP + App Name) AND button param (OTP)
+      components = [
+        {
+          type: 'body',
+          parameters: [
+            {
+              type: 'text',
+              text: otp,
+            },
+            {
+              type: 'text',
+              text: "Banker's Den",
+            },
+          ],
+        },
+        {
+          type: 'button',
+          sub_type: 'url',
+          index: '0',
+          parameters: [
+            {
+              type: 'text',
+              text: otp,
+            },
+          ],
+        },
+      ];
+    } else {
+      // Standard Utility template with {{1}} parameter in body
+      components = [
+        {
+          type: 'body',
+          parameters: [
+            {
+              type: 'text',
+              text: otp,
+            },
+          ],
+        },
+      ];
+    }
+
+    const payload = {
+      messaging_product: 'whatsapp',
+      recipient_type: 'individual',
+      to: sanitizedTo,
+      type: 'template',
+      template: {
+        name: templateName,
+        language: {
+          code: languageCode,
+        },
+        components,
+      },
+    };
+
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${this.accessToken}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        console.error('❌ Meta WhatsApp Template API error:', data);
+        return {
+          success: false,
+          error: data.error?.message || 'Meta API returned an error',
+          details: data.error,
+        };
+      }
+
+      const messageId = data.messages?.[0]?.id;
+      console.log(`✅ WhatsApp OTP template (${templateName}) sent to ${sanitizedTo}. Message ID: ${messageId}`);
+
+      return {
+        success: true,
+        messageId,
+        details: data,
+      };
+    } catch (err: any) {
+      console.error('❌ WhatsApp network/fetch error:', err);
+      return {
+        success: false,
+        error: err.message || 'Unknown network error',
+      };
+    }
+  }
+
+  /**
    * Welcome response triggered when a user sends "Hi" or initiates a chat.
    */
   async sendWelcomeResponse(to: string, name?: string): Promise<WhatsAppSendResult> {
