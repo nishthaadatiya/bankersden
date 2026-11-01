@@ -30,28 +30,32 @@ const QUICK_REPLIES = [
   "💬 Talk to Banker",
 ];
 
+const OFFICIAL_WHATSAPP_NUMBER = '919834784681';
+const OFFICIAL_WHATSAPP_URL = 'https://wa.me/919834784681?text=Hi';
+
 const isBankerQuery = (text: string): boolean => {
   const q = text.trim().toLowerCase();
-  return (
-    q === 'talk to banker' ||
-    q === '💬 talk to banker' ||
-    q === 'talk to a banker' ||
-    q === 'speak to a banker' ||
-    q === 'speak to banker' ||
-    q === 'talk to human' ||
-    q === 'talk to an expert' ||
-    q === 'speak with an agent' ||
-    q === 'connect to banker' ||
-    q === 'connect with a banker' ||
-    q === 'banker' ||
-    q.includes('talk to banker') ||
-    q.includes('talk to a banker') ||
-    q.includes('speak to a banker') ||
-    q.includes('speak to banker') ||
-    q.includes('connect with a banker') ||
-    q.includes('connect to a banker') ||
-    q.includes('talk to human')
-  );
+  const keywords = [
+    'banker',
+    'talk to banker',
+    'speak to banker',
+    'talk to human',
+    'speak with human',
+    'human',
+    'agent',
+    'advisor',
+    'expert',
+    'whatsapp',
+    'call',
+    'contact',
+    'phone',
+    'mobile',
+    'number',
+    'representative',
+    'talk to someone',
+    'speak to someone',
+  ];
+  return keywords.some((k) => q.includes(k));
 };
 
 // Generate a stable session ID per browser tab (resets on full page reload)
@@ -102,12 +106,9 @@ export default function Chatbot() {
 
     // Check if user is asking to talk to a banker / human
     if (isBankerQuery(text)) {
-      const whatsappNumber =
-        process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '919834784681';
-      const cleanNumber = whatsappNumber.replace(/\D/g, '');
-      const whatsappUrl = `https://wa.me/${cleanNumber}?text=${encodeURIComponent('Hi')}`;
+      const whatsappUrl = OFFICIAL_WHATSAPP_URL;
 
-      // Open WhatsApp in new tab immediately
+      // Open WhatsApp in new tab immediately to +91 98347 84681 with text=Hi
       if (typeof window !== 'undefined') {
         window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
       }
@@ -115,10 +116,10 @@ export default function Chatbot() {
       const bankerModelMessage: Message = {
         id: (Date.now() + 1).toString(),
         role: 'model',
-        text: `Connecting you to our senior loan advisor on WhatsApp! 🚀\n\nIf WhatsApp didn't open automatically, click the button below to start your conversation with **"Hi"**:`,
+        text: `Connecting you to our senior loan advisor on WhatsApp (+91 98347 84681)! 🚀\n\nIf WhatsApp didn't open automatically, click the button below to start your conversation with **"Hi"**:`,
         action: {
           type: 'whatsapp',
-          label: 'Chat with Banker on WhatsApp',
+          label: 'Chat on WhatsApp (+91 98347 84681)',
           url: whatsappUrl,
         },
       };
